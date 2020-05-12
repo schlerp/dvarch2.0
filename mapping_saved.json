@@ -1,0 +1,145 @@
+{
+  "datavault": {
+    "engine": {
+      "bk_delim": "|",
+      "bk_dtype": "NVARCHAR(256)",
+      "hash_func": "SHA1",
+      "hk_dtype": "BINARY(20)",
+      "rec_src_dtype": "NVARCHAR(256)"
+    },
+    "model": {
+      "hubs": [
+        {
+          "BK": {
+            "column": "[Id]",
+            "database": "[Source]",
+            "schema": "[dbo]",
+            "table": "[Answers]",
+            "transform": "CONVERT(NVARCHAR, {})"
+          },
+          "NAME": "HUB_ANSWER"
+        },
+        {
+          "BK": {
+            "column": "[Id]",
+            "database": "[Source]",
+            "schema": "[dbo]",
+            "table": "[Questions]",
+            "transform": "CONVERT(NVARCHAR, {})"
+          },
+          "NAME": "HUB_QUESTION"
+        },
+        {
+          "BK": {
+            "column": "[Id]",
+            "database": "[Source]",
+            "schema": "[dbo]",
+            "table": "[Tags]",
+            "transform": "CONCAT({}, '|', 3[Tag])"
+          },
+          "NAME": "HUB_TAG"
+        }
+      ],
+      "links": [
+        {
+          "HUB_LEFT": "HUB_QUESTION",
+          "HUB_RIGHT": "HUB_ANSWER",
+          "NAME": "LNK_QUESTION_ANSWER",
+          "SOURCE_FROM": "[Source].[dbo].[Questions] INNER JOIN [Source].[dbo].[Answers] ON [Questions].Id = [Answers].ParentId"
+        },
+        {
+          "HUB_LEFT": "HUB_QUESTION",
+          "HUB_RIGHT": "HUB_TAG",
+          "NAME": "LNK_QUESTION_TAG",
+          "SOURCE_FROM": "[Source].[dbo].[Questions] INNER JOIN [Source].[dbo].[Tags] ON [Questions].Id = [Tags].Id"
+        }
+      ],
+      "sats": [
+        {
+          "COLUMNS": [
+            {
+              "source_col": "OwnerUserId",
+              "source_table": "Answers",
+              "target": "owner_id",
+              "transform": ""
+            },
+            {
+              "source_col": "CreationDate",
+              "source_table": "Answers",
+              "target": "creation_date",
+              "transform": ""
+            },
+            {
+              "source_col": "ParentId",
+              "source_table": "Answers",
+              "target": "parent_id",
+              "transform": ""
+            },
+            {
+              "source_col": "Score",
+              "source_table": "Answers",
+              "target": "score",
+              "transform": ""
+            },
+            {
+              "source_col": "Body",
+              "source_table": "Answers",
+              "target": "body",
+              "transform": ""
+            }
+          ],
+          "HUB": "HUB_ANSWER",
+          "NAME": "SAT_ANSWER_DETAILS"
+        },
+        {
+          "COLUMNS": [
+            {
+              "source_col": "OwnerUserId",
+              "source_table": "Questions",
+              "target": "owner_id",
+              "transform": ""
+            },
+            {
+              "source_col": "CreationDate",
+              "source_table": "Questions",
+              "target": "creation_date",
+              "transform": ""
+            },
+            {
+              "source_col": "Score",
+              "source_table": "Questions",
+              "target": "score",
+              "transform": ""
+            },
+            {
+              "source_col": "Title",
+              "source_table": "Questions",
+              "target": "title",
+              "transform": ""
+            },
+            {
+              "source_col": "Body",
+              "source_table": "Questions",
+              "target": "body",
+              "transform": ""
+            }
+          ],
+          "HUB": "HUB_QUESTION",
+          "NAME": "SAT_QUESTION_DETAILS"
+        },
+        {
+          "COLUMNS": [
+            {
+              "source_col": "Tag",
+              "source_table": "Tags",
+              "target": "tag",
+              "transform": ""
+            }
+          ],
+          "HUB": "HUB_TAG",
+          "NAME": "SAT_TAG_DETAILS"
+        }
+      ]
+    }
+  }
+}

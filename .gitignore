@@ -1,0 +1,48 @@
+.DS_Store
+node_modules/
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# python
+.DS_Store
+.env
+.flaskenv
+*.pyc
+*.pyo
+env/
+env*
+/backend/venv/
+dist/
+build/
+*.egg
+*.egg-info/
+_mailinglist
+.tox/
+.cache/
+.pytest_cache/
+.idea/
+docs/_build/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+*,cover
+
+
+# config files
+engine_config.json
+engine_log.txt
+mapping.json
+source_database.json
+target_database.json
